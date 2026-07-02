@@ -9,7 +9,7 @@ namespace KFH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Microsoft.AspNetCore.Authorization.Authorize]
+    //[Microsoft.AspNetCore.Authorization.Authorize]
     public class CustomerAccountController : ControllerBase
     {
         private readonly KFHContext _context;
