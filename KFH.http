@@ -1,0 +1,6 @@
+@KFH_HostAddress = http://localhost:5246
+
+GET {{KFH_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
