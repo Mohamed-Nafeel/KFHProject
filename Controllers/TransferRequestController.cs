@@ -8,6 +8,7 @@ namespace KFH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class TransferRequestController : ControllerBase
     {
         private readonly KFHContext _context;
@@ -63,6 +64,7 @@ namespace KFH.Controllers
 
         // POST: api/TransferRequest/{source}/{destination}/{createdDate}/process
         [HttpPost("{source}/{destination}/{createdDate}/process")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
         public async Task<ActionResult<TransferRequest>> ProcessTransfer(int source, int destination, int createdDate)
         {
             var tr = await _context.TransferRequests.FindAsync(source, destination, createdDate);

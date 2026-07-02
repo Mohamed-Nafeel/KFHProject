@@ -31,3 +31,18 @@ This solution implements a simplified Bank Account Management System with accoun
 - Add repository/service abstractions and unit tests.
 - Add FluentValidation and authentication for production use.
 
+## Security / Secrets
+- The API uses JWT Bearer authentication. Configure secrets via dotnet user-secrets or environment variables.
+- Required settings (example keys):
+  - Jwt:Key (symmetric signing key) -- store as secret
+  - Jwt:Issuer
+  - Jwt:Audience
+  - Jwt:ExpiresMinutes
+
+Example (local dev):
+1. Initialize user secrets: `dotnet user-secrets init`
+2. Set a secret key: `dotnet user-secrets set "Jwt:Key" "<strong-random-secret>"`
+3. Optionally set issuer/audience: `dotnet user-secrets set "Jwt:Issuer" "KFH"`
+
+You can also set environment variables in Production (e.g., Azure Key Vault, Azure App Configuration, or OS env vars).
+
