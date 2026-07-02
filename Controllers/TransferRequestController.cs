@@ -8,6 +8,7 @@ namespace KFH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   // [Microsoft.AspNetCore.Authorization.Authorize]
     public class TransferRequestController : ControllerBase
     {
         private readonly KFHContext _context;
@@ -33,8 +34,7 @@ namespace KFH.Controllers
             if (src == null || dst == null)
                 return BadRequest("Source or destination account does not exist.");
 
-            // Use Unix seconds as CreatedDate (int)
-            request.CreatedDate = (int)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                        
             request.Status = "pending";
 
             _context.TransferRequests.Add(request);
@@ -45,7 +45,7 @@ namespace KFH.Controllers
 
         // GET: api/TransferRequest/{source}/{destination}/{createdDate}
         [HttpGet("{source}/{destination}/{createdDate}")]
-        public async Task<ActionResult<TransferRequest>> GetById(int source, int destination, int createdDate)
+        public async Task<ActionResult<TransferRequest>> GetById(int source, int destination, DateTime createdDate)
         {
             var tr = await _context.TransferRequests.FindAsync(source, destination, createdDate);
             if (tr == null)
@@ -63,7 +63,8 @@ namespace KFH.Controllers
 
         // POST: api/TransferRequest/{source}/{destination}/{createdDate}/process
         [HttpPost("{source}/{destination}/{createdDate}/process")]
-        public async Task<ActionResult<TransferRequest>> ProcessTransfer(int source, int destination, int createdDate)
+        //[Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
+        public async Task<ActionResult<TransferRequest>> ProcessTransfer(int source, int destination, DateTime createdDate)
         {
             var tr = await _context.TransferRequests.FindAsync(source, destination, createdDate);
             if (tr == null)

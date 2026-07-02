@@ -7,7 +7,7 @@ namespace KFH
         public int SourceAccount { get; set; }
         public int DestinationAccount { get; set; }
         public decimal Amount { get; set; }
-        public int CreatedDate { get; set; }
-        public string Status { get; set; } = "completed";
+        public DateTime CreatedDate { get; set; }
+        public string Status { get; set; } = "pending";
     }
 }
